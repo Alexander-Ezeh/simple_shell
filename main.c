@@ -1,73 +1,120 @@
-#include "main.h"
-
+#include "shell.h"
 /**
- * main - function frees data structure
- *
- * @datash: Pointer to the data structure to be freed
- * Return: This function does not return a value
- */
-void free_data(data_shell *datash)
-{
-	unsigned int i;
-
-	for (i = 0; datash->_environ[i]; i++)
-	{
-		free(datash->_environ[i]);
-	}
-
-	free(datash->_environ);
-	free(datash->pid);
-}
-
-/**
- * main - function initialize data structure
- *
- * @datash: Pointer to the data structure to
- * @av: Argument vector
- * Return: This function does not return a value
- */
-void set_data(data_shell *datash, char **av)
-{
-	unsigned int i;
-
-	datash->av = av;
-	datash->input = NULL;
-	datash->args = NULL;
-	datash->status = 0;
-	datash->counter = 1;
-
-	for (i = 0; environ[i]; i++)
-		;
-
-	datash->_environ = malloc(sizeof(char *) * (i + 1));
-
-	for (i = 0; environ[i]; i++)
-	{
-		datash->_environ[i] = _strdup(environ[i]);
-	}
-
-	datash->_environ[i] = NULL;
-	datash->pid = aux_itoa(getpid());
-}
-
-/**
- * main - entry point of the program
- *
- * @ac: Number of command-line arguments passed to the program
- * @av: Array of strings containing the command-line arguments
- *
+ * main - initialize program variables
+ * @argc: number of values command line receives
+ * @argv: values of command line received
+ * @env: number of values command line receives
  * Return: 0 on success.
  */
-int main(int ac, char **av)
+int main(int argc, char *argv[], char *env[])
 {
-	data_shell datash;
-	(void) ac;
+	data_of_program data_struct = {NULL}, *data = &data_struct;
+	char *prompt = "";
 
-	signal(SIGINT, get_sigint);
-	set_data(&datash, av);
-	shell_loop(&datash);
-	free_data(&datash);
-	if (datash.status < 0)
-		return (255);
-	return (datash.status);
+	inicialize_data(data, argc, argv, env);
+
+	signal(SIGINT, handle_ctrl_c);
+
+	if (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO) && argc == 1)
+	{ /* terminal interactive mode */
+		errno = 2;
+		prompt = PROMPT_MSG;
+	}
+	errno = 0;
+	sisifo(prompt, data);
+	return (0);
+}
+
+/**
+ * handle_ctrl_c - print prompt in new line
+ * when the signal SIGINT (ctrl + c) sent to the program
+ * @UNUSED: prototype option
+ */
+void handle_ctrl_c(int opr UNUSED)
+{
+	_print("\n");
+	_print(PROMPT_MSG);
+}
+
+/**
+ * inicialize_data - inicialize program info struct
+ * @data: structure of data pointer
+ * @argv: arguments passed to the program execution array
+ * @env: program execution passed to environ
+ * @argc: number of values command line receives
+ */
+void inicialize_data(data_of_program *data, int argc, char *argv[], char **env)
+{
+	int i = 0;
+
+	data->program_name = argv[0];
+	data->input_line = NULL;
+	data->command_name = NULL;
+	data->exec_counter = 0;
+	/* file descriptor to be read is defined */
+	if (argc == 1)
+		data->file_descriptor = STDIN_FILENO;
+	else
+	{
+		data->file_descriptor = open(argv[1], O_RDONLY);
+		if (data->file_descriptor == -1)
+		{
+			_printe(data->program_name);
+			_printe(": 0: Can't open ");
+			_printe(argv[1]);
+			_printe("\n");
+			exit(127);
+		}
+	}
+	data->tokens = NULL;
+	data->env = malloc(sizeof(char *) * 50);
+	if (env)
+	{
+		for (; env[i]; i++)
+		{
+			data->env[i] = str_duplicate(env[i]);
+		}
+	}
+	data->env[i] = NULL;
+	env = data->env;
+
+	data->alias_list = malloc(sizeof(char *) * 20);
+	for (i = 0; i < 20; i++)
+	{
+		data->alias_list[i] = NULL;
+	}
+}
+/**
+ * sisifo - an infinite loop that shows prompt
+ * @prompt: prompt that would be printed
+ * @data: an infinite loop that shows prompt
+ */
+void sisifo(char *prompt, data_of_program *data)
+{
+	int error_code = 0, string_len = 0;
+
+	while (++(data->exec_counter))
+	{
+		_print(prompt);
+		error_code = string_len = _getline(data);
+
+		if (error_code == EOF)
+		{
+			free_all_data(data);
+			exit(errno); /* if EOF is fisrt Char of string,then exit*/
+		}
+		if (string_len >= 1)
+		{
+			expand_alias(data);
+			expand_variables(data);
+			tokenize(data);
+			if (data->tokens[0])
+			{ /* if text is given to the prompt, execute */
+				error_code = execute(data);
+				if (error_code != 0)
+					_print_error(error_code, data);
+			}
+			free_recurrent_data(data);
+		}
+	}
 }
