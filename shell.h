@@ -83,7 +83,7 @@ void expand_alias(data_of_program *data);
 int buffer_add(char *buffer, char *str_to_add);
 
 
-/*======== str_tok.c ========*/
+/*======== _strtok.c ========*/
 
 /* Separates tokens string using a designed delimiter */
 void tokenize(data_of_program *data);
