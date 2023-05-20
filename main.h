@@ -98,13 +98,13 @@ char *_strtok(char *line, char *delim);
 int execute(data_of_program *data);
 
 
-/*======== builtins_list.c ========*/
+/*======== builtins_2.c ========*/
 
 /* If builtin is a match, execute it */
 int builtins_list(data_of_program *data);
 
 
-/*======== find_in_path.c ========*/
+/*======== find.c ========*/
 
 /* Create an array path directories */
 char **tokenize_path(data_of_program *data);
@@ -125,7 +125,7 @@ void free_recurrent_data(data_of_program *data);
 void free_all_data(data_of_program *data);
 
 
-/*======== builtins_more.c ========*/
+/*======== builtins_3.c ========*/
 
 /* Closes shell */
 int builtin_exit(data_of_program *data);
@@ -143,7 +143,7 @@ int builtin_help(data_of_program *data);
 int builtin_alias(data_of_program *data);
 
 
-/*======== builtins_env.c ========*/
+/*======== builtins_1.c ========*/
 
 /* Shows shell running environment */
 int builtin_env(data_of_program *data);
@@ -170,7 +170,7 @@ int env_remove_key(char *key, data_of_program *data);
 void print_environ(data_of_program *data);
 
 
-/*======== helpers_print.c ========*/
+/*======== helpers_2.c ========*/
 
 /* Prints standart output  string */
 int _print(char *string);
@@ -182,7 +182,7 @@ int _printe(char *string);
 int _print_error(int errorcode, data_of_program *data);
 
 
-/*======== helpers_string.c ========*/
+/*======== helpers_4.c ========*/
 
 /* Counts number of characters in a string */
 int str_length(char *string);
@@ -200,7 +200,7 @@ char *str_concat(char *string1, char *string2);
 void str_reverse(char *string);
 
 
-/*======== helpers_numbers.c ========*/
+/*======== helpers_3.c ========*/
 
 /* Casts int to string */
 void long_to_string(long number, char *string, int base);
@@ -212,7 +212,7 @@ int _atoi(char *s);
 int count_characters(char *string, char *character);
 
 
-/*======== alias_management.c ========*/
+/*======== _alias.c ========*/
 
 /* print list of alias */
 int print_alias(data_of_program *data, char *alias);
