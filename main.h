@@ -27,6 +27,7 @@
  * @alias_list: alias pointer array.
  */
 
+typedef struct info
 {
 	char *program_name;
 	char *input_line;
