@@ -125,7 +125,7 @@ void free_recurrent_data(data_of_program *data);
 void free_all_data(data_of_program *data);
 
 
-/*======== builtins_more.c ========*/
+/*======== builtins_3.c ========*/
 
 /* Closes shell */
 int builtin_exit(data_of_program *data);
@@ -143,7 +143,7 @@ int builtin_help(data_of_program *data);
 int builtin_alias(data_of_program *data);
 
 
-/*======== builtins_env.c ========*/
+/*======== builtins_1.c ========*/
 
 /* Shows shell running environment */
 int builtin_env(data_of_program *data);
