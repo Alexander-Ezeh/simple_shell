@@ -98,13 +98,13 @@ char *_strtok(char *line, char *delim);
 int execute(data_of_program *data);
 
 
-/*======== builtins_list.c ========*/
+/*======== builtins_2.c ========*/
 
 /* If builtin is a match, execute it */
 int builtins_list(data_of_program *data);
 
 
-/*======== find_in_path.c ========*/
+/*======== find.c ========*/
 
 /* Create an array path directories */
 char **tokenize_path(data_of_program *data);
