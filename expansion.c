@@ -14,20 +14,20 @@ void expand_variables(data_of_program *data)
 	if (data->input_line == NULL)
 		return;
 	buffer_add(line, data->input_line);
-	for (i = 0; line[x]; x++)
+	for (x = 0; line[x]; x++)
 		if (line[x] == '#')
 			line[x--] = '\0';
 		else if (line[x] == '$' && line[x + 1] == '?')
 		{
 			line[x] = '\0';
-			long_to_str(errno, expansion, 10);
+			long_to_string(errno, expansion, 10);
 			buffer_add(line, expansion);
 			buffer_add(line, data->input_line + x + 2);
 		}
 		else if (line[x] == '$' && line[x + 1] == '$')
 		{
 			line[x] = '\0';
-			long_to_str(getpid(), expansion, 10);
+			long_to_string(getpid(), expansion, 10);
 			buffer_add(line, expansion);
 			buffer_add(line, data->input_line + x + 2);
 		}

@@ -1,86 +1,71 @@
 #include "main.h"
 
+
 /**
- * long_to_string - converts a number to a string.
- * @number: number to be converten in an string.
- * @string: buffer to save the number as string.
- * @base: base to convert number
- *
- * Return: Nothing.
+ * _print - writes a array of chars in the standar output
+ * @string: pointer to the array of chars
+ * Return: the number of bytes writed or .
+ * On error, -1 is returned, and errno is set appropriately.
  */
-void long_to_string(long number, char *string, int base)
+int _print(char *string)
 {
-	int index = 0, inNegative = 0;
-	long cociente = number;
-	char letters[] = {"0123456789abcdef"};
+	return (write(STDOUT_FILENO, string, str_length(string)));
+}
+/**
+ * _printe - writes a array of chars in the standar error
+ * @string: pointer to the array of chars
+ * Return: the number of bytes writed or .
+ * On error, -1 is returned, and errno is set appropriately.
+ */
+int _printe(char *string)
+{
+	return (write(STDERR_FILENO, string, str_length(string)));
+}
 
-	if (cociente == 0)
-		string[index++] = '0';
+/**
+ * _print_error - writes a array of chars in the standart error
+ * @data: a pointer to the program's data'
+ * @errorcode: error code to print
+ * Return: the number of bytes writed or .
+ * On error, -1 is returned, and errno is set appropriately.
+ */
+int _print_error(int errorcode, data_of_program *data)
+{
+	char n_as_string[10] = {'\0'};
 
-	if (string[0] == '-')
-		inNegative = 1;
+	long_to_string((long) data->exec_counter, n_as_string, 10);
 
-	while (cociente)
+	if (errorcode == 2 || errorcode == 3)
 	{
-		if (cociente < 0)
-			string[index++] = letters[-(cociente % base)];
+		_printe(data->program_name);
+		_printe(": ");
+		_printe(n_as_string);
+		_printe(": ");
+		_printe(data->tokens[0]);
+		if (errorcode == 2)
+			_printe(": Illegal number: ");
 		else
-			string[index++] = letters[cociente % base];
-		cociente /= base;
+			_printe(": can't cd to ");
+		_printe(data->tokens[1]);
+		_printe("\n");
 	}
-	if (inNegative)
-		string[index++] = '-';
-
-	string[index] = '\0';
-	str_reverse(string);
-}
-
-
-/**
- * _atoi - convert a string to an integer.
- *
- * @s: pointer to str origen.
- * Return: int of string or 0.
- */
-int _atoi(char *s)
-{
-	int sign = 1;
-	unsigned int number = 0;
-	/*1- analisys sign*/
-	while (!('0' <= *s && *s <= '9') && *s != '\0')
+	else if (errorcode == 127)
 	{
-		if (*s == '-')
-			sign *= -1;
-		if (*s == '+')
-			sign *= +1;
-		s++;
+		_printe(data->program_name);
+		_printe(": ");
+		_printe(n_as_string);
+		_printe(": ");
+		_printe(data->command_name);
+		_printe(": not found\n");
 	}
-
-	/*2 - extract the number */
-	while ('0' <= *s && *s <= '9' && *s != '\0')
+	else if (errorcode == 126)
 	{
-
-		number = (number * 10) + (*s - '0');
-		s++;
+		_printe(data->program_name);
+		_printe(": ");
+		_printe(n_as_string);
+		_printe(": ");
+		_printe(data->command_name);
+		_printe(": Permission denied\n");
 	}
-	return (number * sign);
-}
-
-/**
- * count_characters - count the coincidences of character in string.
- *
- * @string: pointer to str origen.
- * @character: string with  chars to be counted
- * Return: int of string or 0.
- */
-int count_characters(char *string, char *character)
-{
-	int y = 0, counter = 0;
-
-	for (; string[y]; y++)
-	{
-		if (string[y] == character[0])
-			counter++;
-	}
-	return (counter);
+	return (0);
 }

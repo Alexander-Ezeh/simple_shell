@@ -20,7 +20,7 @@ void tokenize(data_of_program *data)
 	{
 		for (b = 0; delimiter[b]; b++)
 		{
-			if (data->input_line[i] == delimiter[j])
+			if (data->input_line[a] == delimiter[b])
 				counter++;
 		}
 	}
