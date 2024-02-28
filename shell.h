@@ -16,7 +16,7 @@
 #include "macros.h" /* for  msg prompt and help */
 
 /**
- * _struct info- struct for program's data
+ * struct info- struct for program's data
  * @program_name: name of executable
  * @input_line: input pointer to be read by _getline
  * @command_name: first command typed by user
