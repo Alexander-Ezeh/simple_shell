@@ -21,8 +21,7 @@ char *env_get_key(char *key, data_of_program *data)
 		{
 			return (data->env[i] + key_length + 1);
 		}
-	}
-	/* returns NULL if did not find it */
+	
 	return (NULL);
 }
 
@@ -32,7 +31,7 @@ char *env_get_key(char *key, data_of_program *data)
 
 int env_set_key(char *key, char *value, data_of_program *data)
 {
-	int i, key_length = 0, is_new_key = 1;
+	int i, key_length = 0;
 
 	if (key == NULL || value == NULL || data->env == NULL)
 		return (1);
@@ -49,11 +48,13 @@ int env_set_key(char *key, char *value, data_of_program *data)
 			break;
 		}
 	}
-	
+
+{
+{
 	data->env[i] = str_concat(str_duplicate(key), "=");
 	data->env[i] = str_concat(data->env[i], value);
 
-	if (is_new_key)
+	if 
 	
 		data->env[i + 1] = NULL;
 	}
