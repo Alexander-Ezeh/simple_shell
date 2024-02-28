@@ -2,7 +2,7 @@
 
 /**
  * builtin_env - shows environs in which shell runs
- * data: program's data structure
+ * @data: program's data structure
  * Return: 0 if sucess, or any number declared in arguments
  */
 int builtin_env(data_of_program *data)
@@ -49,8 +49,8 @@ int builtin_env(data_of_program *data)
 }
 
 /**
- * builtin_set_environs - NULL
- * data: structucture for the program's data
+ * builtin_set_env - NULL
+ * @data: structucture for the program's data
  * Return: 0 if sucess, or any number declared in arguments
  */
 int builtin_set_env(data_of_program *data)
@@ -71,8 +71,8 @@ int builtin_set_env(data_of_program *data)
 }
 
 /**
- * builtin_unset_environs - NULL
- * data: program's data structure
+ * builtin_unset_env - NULL
+ * @data: program's data structure
  * Return: always NULL
  */
 int builtin_unset_env(data_of_program *data)

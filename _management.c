@@ -18,7 +18,7 @@ char *env_get_key(char *key, data_of_program *data)
 	key_length = str_length(key);
 
 	for (i = 0; data->env[i]; i++)
-	{/* Iterates through the environment and check for the coincidence of the name */
+	{
 		if (str_compare(key, data->env[i], key_length) &&
 		 data->env[i][key_length] == '=')
 		{/* returns the value of the key NAME=  when find it*/
@@ -35,7 +35,7 @@ char *env_get_key(char *key, data_of_program *data)
  * @key: name of the variable to set
  * @value: new value
  * @data: struct of the program's data
- * Return: 1 if the parameters are NULL, 2 if the error is 0 if it is successful.
+ * Return: 1 if parameters are NULL, 2 if error is 0 and successful.
  */
 
 int env_set_key(char *key, char *value, data_of_program *data)
@@ -50,7 +50,7 @@ int env_set_key(char *key, char *value, data_of_program *data)
 	key_length = str_length(key);
 
 	for (i = 0; data->env[i]; i++)
-	{/* Iterates through the environment and check for the coincidence of the name */
+	{
 		if (str_compare(key, data->env[i], key_length) &&
 		 data->env[i][key_length] == '=')
 		{/* If key already exists */
@@ -65,7 +65,7 @@ int env_set_key(char *key, char *value, data_of_program *data)
 	data->env[i] = str_concat(data->env[i], value);
 
 	if (is_new_key)
-	{/* if the variable is new, it is created at end of the actual list and we need*/
+	{
 	/* to put the NULL value in the next position */
 		data->env[i + 1] = NULL;
 	}

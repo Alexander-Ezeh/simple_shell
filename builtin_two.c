@@ -1,11 +1,11 @@
 #include "shell.h"
 
 /**
- * builtin_list - search for match and executes associate builtin
- * data: program's data structure
+ * builtins_list - search for match and executes associate builtin
+ * @data: program's data structure
  * Return: Returns the function executed if there is a match,
  * else returns -1.
- **/
+ */
 int builtins_list(data_of_program *data)
 {
 	int iterator;
