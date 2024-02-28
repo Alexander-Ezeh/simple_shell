@@ -40,9 +40,7 @@ int env_set_key(char *key, char *value, data_of_program *data)
 
 	for (i = 0; data->env[i]; i++)
 		if (str_compare(key, data->env[i], key_length) &&
-		 data->env[i][key_length] == '=')
-		{/* If key already exists */
-			is_new_key = 0;
+		 data->env[i][key_length] == '=');
 	
 			free(data->env[i]);
 			break;
