@@ -1,8 +1,8 @@
 #include "shell.h"
 
 /**
- * _exit - exit of program with its status
- * data: program's data structure
+ * builtin_exit - exit of program with its status
+ * @data: program's data structure
  * Return: 0 if sucess, or any number declared in arguments
  */
 int builtin_exit(data_of_program *data)
@@ -25,8 +25,8 @@ int builtin_exit(data_of_program *data)
 }
 
 /**
- * cd - changeing current directory
- * data: program's data structure
+ * builtin_cd - changeing current directory
+ * @data: program's data structure
  * Return: 0 if sucess, or any number declared in arguments
  */
 int builtin_cd(data_of_program *data)
@@ -63,9 +63,9 @@ int builtin_cd(data_of_program *data)
 }
 
 /**
- * set - set working directory
- * data: program's data structure
- * new_dir: path to set as working directory
+ * set_work_directory - set working directory
+ * @data: program's data structure
+ * @new_dir: path to set as working directory
  * Return: 0 if sucess, or any number declared in arguments
  */
 int set_work_directory(data_of_program *data, char *new_dir)
@@ -90,8 +90,8 @@ int set_work_directory(data_of_program *data, char *new_dir)
 }
 
 /**
- * builtin - helps to show environ where shell runs
- * data: program's data structure
+ * builtin_help - helps to show environ where shell runs
+ * @data: program's data structure
  * Return: 0 if sucess, or any number declared in arguments
  */
 int builtin_help(data_of_program *data)
@@ -135,8 +135,8 @@ int builtin_help(data_of_program *data)
 }
 
 /**
- * builtin - to add, remove or show alias
- * data: program's data structure
+ * builtin_alias - to add, remove or show alias
+ * @data: program's data structure
  * Return: 0 if sucess, or any number declared in the arguments
  */
 int builtin_alias(data_of_program *data)
