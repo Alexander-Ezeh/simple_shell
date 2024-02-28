@@ -1,8 +1,8 @@
 #include "main.h"
 /**
  * _strtok - to separate string with known delimiters
- * line: It is a pointer to the array we receive in the _getline.
- * delim: It is characters we mark off in the string in parts.
+ * @line: It is a pointer to the array we receive in the _getline.
+ * @delim: It is characters we mark off in the string in parts.
  * Return: to the created token
 */
 char *_strtok(char *line, char *delim)
