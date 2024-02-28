@@ -1,4 +1,4 @@
-#include "shell.h"
+/* #include "shell.h"
 
 /**
  * _get_key - gets value of environment variable
@@ -125,5 +125,4 @@ void print_environ(data_of_program *data)
 		_print(data->env[j]);
 		_print("\n");
 	}
-}
-
+} */
